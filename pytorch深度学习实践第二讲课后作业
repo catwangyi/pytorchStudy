@@ -16,10 +16,12 @@ def loss(x, y,b):
     return (y_pred - y) ** 2
 
 
+# 穷举法
 w_list = []
 mse_list = []
-for w in np.arange(0.0, 4.1, 0.5):
-    for b in np.arange(0.0, 4.1, 0.5):
+b_list = []
+for w in np.arange(0.0, 4.1, 0.1):
+    for b in np.arange(-2.0, 2.1, 0.1):
         l_sum = 0
         for x_val, y_val in zip(x_data, y_data):
             y_pred_val = forward(x_val, b)
@@ -34,11 +36,11 @@ fig = plt.figure()
 ax = Axes3D(fig)
 
 x = np.array(w_list)
-y = np.arange(0.0, 4.1, 0.5)
+y = np.arange(-2.0, 2.1, 0.1)
 print(x.shape)
 print(y.shape)
+z = np.reshape(mse_list,(x.__len__(), y.__len__()))
 x, y = np.meshgrid(x, y)
-z = np.reshape(mse_list,(9, 9))
 # print(z)
 
 ax.plot_surface(x, y, z)
